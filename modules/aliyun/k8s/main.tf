@@ -14,4 +14,5 @@ resource "alicloud_cs_kubernetes" "k8s" {
   enable_ssh                = true
   slb_internet_enabled      = true
   node_cidr_mask            = 25
+  availability_zone = var.azs
 }

@@ -24,12 +24,12 @@ module "vpc-al" {
 module "k8s" {
   source = "./modules/aliyun/k8s"
   cluster_name = "${local.cluster_name}"
-  key_name = "aliyun-test-k8s"
+  key_name = "k8s_sample"
   vswitch_ids = module.vpc-al.vswitch_id
 
   azs                   = local.azs_al
-  master_instance_type  = "ecs.n1.medium"
-  worker_instance_type  = "ecs.n1.medium"
+  master_instance_type  = "ecs.t5-lc1m2.small"
+  worker_instance_type  = "ecs.t5-lc1m2.small"
   worker_numbers        = "3"
   pod_cidr              = "172.16.0.0/16"
   service_cidr          = "172.31.1.0/24"
