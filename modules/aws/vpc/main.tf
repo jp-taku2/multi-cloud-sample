@@ -1,9 +1,9 @@
 locals {
   max_subnet_length = "${max(length(var.private_subnet_suffix))}"
   nat_gateway_count = "${var.single_nat_gateway ? 1 : (var.one_nat_gateway_per_az ? length(var.azs) : length(var.azs))}"
-  nat_gateway_ips = split(",", (var.reuse_nat_ips ? join(",", var.external_nat_ip_ids) : join(",", aws_eip.nat[*].id)))
+  nat_gateway_ips   = split(",", (var.reuse_nat_ips ? join(",", var.external_nat_ip_ids) : join(",", aws_eip.nat[*].id)))
   # Use `local.vpc_id` to give a hint to Terraform that subnets should be deleted before secondary CIDR blocks can be free!
-  vpc_id    = "${element(concat(aws_vpc_ipv4_cidr_block_association.this.*.vpc_id, aws_vpc.this.*.id, list("")), 0)}"
+  vpc_id = "${element(concat(aws_vpc_ipv4_cidr_block_association.this.*.vpc_id, aws_vpc.this.*.id, list("")), 0)}"
 }
 
 ######
@@ -13,7 +13,7 @@ resource "aws_vpc" "this" {
   count = var.create_vpc ? 1 : 0
 
   cidr_block                       = var.cidr
-    instance_tenancy                 = var.instance_tenancy
+  instance_tenancy                 = var.instance_tenancy
   enable_dns_hostnames             = var.enable_dns_hostnames
   enable_dns_support               = var.enable_dns_support
   assign_generated_ipv6_cidr_block = var.assign_generated_ipv6_cidr_block
@@ -132,7 +132,7 @@ resource "aws_subnet" "public" {
 # Private subnet
 #################
 resource "aws_subnet" "private" {
-  count             = var.create_vpc && length(var.private_subnets) > 0 ? length(var.private_subnets) : 0
+  count = var.create_vpc && length(var.private_subnets) > 0 ? length(var.private_subnets) : 0
 
   vpc_id            = local.vpc_id
   cidr_block        = var.private_subnets[count.index]

@@ -11,17 +11,17 @@ data "aws_security_group" "default" {
 }
 
 module "vpc" {
-  source = "../modules/aws/vpc"
-  create_vpc            = true
-  name                  = local.vpc-name
-  public_subnets        = local.public_subnets_aws
-  private_subnets = local.private_subnets_aws
-  public_subnet_suffix    = local.public_subnet_suffix
-  private_subnet_suffix   = local.private_subnet_suffix
+  source                      = "../modules/aws/vpc"
+  create_vpc                  = true
+  name                        = local.vpc-name
+  public_subnets              = local.public_subnets_aws
+  private_subnets             = local.private_subnets_aws
+  public_subnet_suffix        = local.public_subnet_suffix
+  private_subnet_suffix       = local.private_subnet_suffix
   private_subnet_suffix_count = length(local.private_subnet_suffix)
-  cidr                  = local.vpc-cidr_aws
-  azs                   = local.azs_aws
-  azs_count             = length(local.azs_aws)
+  cidr                        = local.vpc-cidr_aws
+  azs                         = local.azs_aws
+  azs_count                   = length(local.azs_aws)
 
 
   enable_dns_hostnames     = true
