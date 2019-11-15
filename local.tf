@@ -5,7 +5,7 @@ locals {
     "private",
   ]
   vpc-name = "dev-vpc"
-
+  cluster_name = "sample-cluster"
 
   ## for aliyun
   vpc-cidr_al = "192.168.0.0/20"

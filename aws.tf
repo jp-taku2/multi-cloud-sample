@@ -11,7 +11,7 @@ data "aws_security_group" "default" {
 }
 
 module "vpc" {
-  source                      = "../modules/aws/vpc"
+  source                      = "./modules/aws/vpc"
   create_vpc                  = true
   name                        = local.vpc-name
   public_subnets              = local.public_subnets_aws
@@ -46,3 +46,4 @@ module "vpc" {
     Environment = "prod"
   }
 }
+
